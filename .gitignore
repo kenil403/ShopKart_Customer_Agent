@@ -13,3 +13,5 @@ backend/eval/results/partial.json
 backend/data/conversations.sqlite*
 backend/static/
 policy_docs/
+
+docs/
