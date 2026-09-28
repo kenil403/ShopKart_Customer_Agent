@@ -2,7 +2,10 @@
 
 A support agent for a fictional Indian online store. It answers policy questions from six documents **with a citation for every claim**, refuses to answer when the documents don't cover something, and takes real actions on customer orders (status, order list, returns) — but only after verifying the customer's email and checking the current return policy.
 
-Built with **LangGraph** (agent), a self-written **MCP server** (order tools), **BM25 retrieval** (RAG), **FastAPI** (backend) and **React** (frontend). Includes a 35-case evaluation suite and 22 offline tests.
+Built with **LangGraph** (agent), a self-written **MCP server** (order tools), **BM25 retrieval** (RAG), **FastAPI** (backend) and **React** (frontend). Includes a 35-case evaluation suite and 24 offline tests.
+
+**Live demo:** [shopkart-support-agent.onrender.com](https://shopkart-support-agent.onrender.com)
+*Hosted on a free tier, so the first request after a quiet period can take up to a minute to wake the service.*
 
 ---
 
@@ -13,6 +16,7 @@ Built with **LangGraph** (agent), a self-written **MCP server** (order tools), *
 - [How the agent decides](#how-the-agent-decides)
 - [Setup](#setup)
 - [Running the evaluation](#running-the-evaluation)
+- [Deployment](#deployment)
 - [Project structure](#project-structure)
 - [Design decisions](#design-decisions)
 - [Evaluation results](#evaluation-results)
@@ -154,7 +158,7 @@ STORE_TODAY=2026-09-26
 
 ```bash
 uv run python -m scripts.check_llm     # tests each key with a real tool call
-uv run pytest -q                       # 22 offline tests, no API key needed
+uv run pytest -q                       # 24 offline tests, no API key needed
 uv run python run.py                   # API on http://127.0.0.1:8000
 ```
 
@@ -223,10 +227,83 @@ Each turn is graded on: tools that must or must not run, required and forbidden 
 ### Offline tests
 
 ```bash
-uv run pytest -q     # 22 tests, ~3 seconds, no API key
+uv run pytest -q     # 24 tests, ~3 seconds, no API key
 ```
 
-A scripted fake LLM replays fixed tool calls, so these are deterministic. They cover every return-eligibility branch, retrieval quality, both security gates, the model router (including a replay of a real three-provider failure), and memory surviving a restart.
+A scripted fake LLM replays fixed tool calls, so these are deterministic. They cover every return-eligibility branch, retrieval quality, both security gates, the model router (including a replay of a real three-provider failure), memory surviving a restart, and a guard that fails loudly if the policy documents are missing.
+
+---
+
+## Deployment
+
+The app is containerised and runs as a single service: the image builds the React app and copies it into the backend, so one URL serves both the website and the API with no CORS configuration.
+
+```
+┌─────────────── Docker image ───────────────┐
+│  stage 1 (node:20)   npm run build → dist  │
+│  stage 2 (python)    uv sync --no-dev      │
+│                      COPY dist → ./static  │
+│                      python run.py         │
+└────────────────────────────────────────────┘
+                     ↓
+        one URL: website + /api
+```
+
+`render.yaml` describes the service. API keys are marked `sync: false`, so they are entered in the host's dashboard and never committed to Git.
+
+### Deploying your own copy
+
+```bash
+# 1. Push to GitHub (a public repository)
+git init
+git add .
+git status                    # verify .env is NOT listed
+git commit -m "ShopKart customer support AI agent"
+git branch -M main
+git remote add origin https://github.com/YOUR-USERNAME/shopkart-support-agent.git
+git push -u origin main
+```
+
+Then on [render.com](https://render.com): **New → Blueprint →** select the repository **→ Apply**, and paste the three API keys when prompted:
+
+```
+GROQ_API_KEY=gsk_...
+GOOGLE_API_KEY=AIza...
+MISTRAL_API_KEY=...
+```
+
+`LLM_MODEL` and `LLM_FALLBACKS` come from `render.yaml` automatically.
+
+### Verifying a deployment
+
+| URL | Expected |
+| --- | --- |
+| `/` | The chat interface |
+| `/api/health` | `"ready": true` and `"policy_chunks": 27` |
+| `/docs` | FastAPI's interactive documentation |
+
+`policy_chunks: 27` is the quickest sanity check — it confirms all six policy documents were indexed.
+
+### Updating a live deployment
+
+```bash
+cd backend && uv run pytest -q     # test before pushing
+git add .
+git commit -m "Describe the change"
+git push                            # the host rebuilds automatically
+```
+
+Because the image builds the frontend itself, no local `npm run build` is needed before pushing.
+
+### Notes on running this on a free tier
+
+| Behaviour | Effect |
+| --- | --- |
+| Service sleeps after inactivity | First request afterwards takes about a minute |
+| Container filesystem is ephemeral | `CHECKPOINT_DB` and `RETURNS_LOG` point at `/tmp`; conversation memory resets when the service restarts, so a chat reopened from history shows its messages but the agent has lost the context |
+| Shared CPU, 512 MB RAM | Fine for this workload: the heavy lifting happens at the model providers |
+
+The memory reset is the one real limitation. Fixing it means swapping the SQLite checkpointer for a hosted Postgres one, which is a small change in `runner.py` but needs a managed database.
 
 ---
 
@@ -320,7 +397,7 @@ To make the precedence visible to the model as well, sections of the 2024 policy
 | Multi-turn | – | 5 |
 | **Total** | **–** | **35** |
 
-Offline test suite: **22/22 passing**.
+Offline test suite: **24/24 passing**.
 
 ---
 
@@ -331,6 +408,8 @@ Offline test suite: **22/22 passing**.
 **Free-tier LLMs failed after the first hour.** The first version worked, then started failing: Groq had retired `llama-3.3-70b-versatile` (404 on every call), Gemini 2.5 Flash allows only 20 requests per *day*, and Mistral's free tier caps at 1 request per second. Worse, LangChain's fallback chain combined with the SDKs' own retries meant each failing model was hit *twice per message*, burning quota at double speed. I replaced it with a router that cools down rate-limited models for the exact time the provider asks, disables retired ones outright, paces requests client-side, and switches back to the main model when it recovers. I also cut tokens per request by roughly 35% and reduced a return from 4 model calls to 2.
 
 **A stale lockfile broke a clean install.** `requirements.txt` had been exported before I added the SQLite checkpointer, so installing from it on a fresh machine crashed at startup with `ModuleNotFoundError`. It only surfaced because I simulated a fresh environment rather than trusting my working one. Lesson: test the install path, not just the code path.
+
+**The knowledge base silently vanished in the container.** The image built cleanly, then the service crashed at startup with `ZeroDivisionError` from deep inside BM25. Two separate causes, one symptom: a `*.md` line in `.dockerignore` excluded the policy documents from the build context, and the documents were also missing from the repository itself. BM25 was averaging over zero documents. I fixed the ignore rule, added a startup guard that names the empty directory and the likely cause, and added a build-time check that fails the image and prints a directory listing rather than shipping an agent with no knowledge base. The deeper lesson: a data dependency that is loaded implicitly at startup deserves the same validation as user input.
 
 **Windows-only crashes.** Two separate issues. The MCP server is started as a subprocess, which fails on Windows under the Selector event loop, so `run.py` forces the Proactor loop. And a test wrote its log to `/tmp`, a path that doesn't exist on Windows; the return was approved but the log write crashed, making a passing feature look broken. The server now creates the folder and treats log failures as non-fatal — a customer's return should never fail because a log file couldn't be written.
 
