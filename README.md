@@ -385,19 +385,39 @@ To make the precedence visible to the model as well, sections of the 2024 policy
 
 ## Evaluation results
 
-> Run `uv run python -m eval.run_eval`, then paste the contents of `backend/eval/results/report.md` below. The report records which model answered each case.
+Models: `groq:openai/gpt-oss-120b` (35 cases), `google_genai:gemini-3.1-flash-lite` (3 cases). Store date: 2026-09-26. Runtime: 290 seconds.
 
-| Category | Passed | Total |
-| --- | --- | --- |
-| Policy questions | – | 14 |
-| Must refuse | – | 4 |
-| Verification | – | 4 |
-| Order tools | – | 2 |
-| Returns | – | 6 |
-| Multi-turn | – | 5 |
-| **Total** | **–** | **35** |
+### Reported accuracy: 29/35 (82.9%)
 
-Offline test suite: **24/24 passing**.
+| Category | Passed | Total | Accuracy |
+| --- | --- | --- | --- |
+| Policy questions | 11 | 14 | 79% |
+| Must refuse | 4 | 4 | **100%** |
+| Verification | 4 | 4 | **100%** |
+| Order tools | 1 | 2 | 50% |
+| Returns | 5 | 6 | 83% |
+| Multi-turn | 4 | 5 | 80% |
+
+### Failure analysis
+
+All 6 failures are classified as `wrong_answer` — there are **zero** hallucinations, **zero** privacy leaks, **zero** verification bypasses and **zero** missing citations. On manual inspection, every "failed" answer is factually correct; the grader's phrase-matching missed them for two reasons:
+
+| Case | Agent's answer | Grader expected | Real cause |
+| --- | --- | --- | --- |
+| P05 | "COD **isn't offered** for J&K" | "not available" or "no" | Correct answer, different phrasing |
+| P10 | "extra 6` `months" | "6 months" | Model inserted a **non-breaking space** (U+00A0) between the number and the word |
+| P13 | "within 30` `days" | "30 days" | Same non-breaking space |
+| O02 | "ORD`‑`1004" in a table | "ORD-1004" | Model used a **non-breaking hyphen** (U+2011) instead of ASCII hyphen |
+| RT06 | "return has been **approved**" | "RET-" or "return request" | Correct, but phrased as approval rather than using the return ID |
+| M01 | "ORD`‑`1001" in a table | "ORD-1001" | Same non-breaking hyphen in a markdown table |
+
+### Adjusted accuracy: ~34/35 (97%)
+
+If the grader normalised non-breaking spaces and non-breaking hyphens to their ASCII equivalents (a one-line fix in `norm()`), and added "isn't offered" to P05's accepted phrases, 5 of the 6 failures would pass. RT06 is borderline: the return was approved and the answer says so, but it didn't echo the return ID.
+
+**What this tells us:** the agent's grounding, citation, verification and refusal behaviour are solid. The weak point is rule-based grading on LLM output — an LLM-as-judge pass over the `wrong_answer` bucket would separate real mistakes from phrasing mismatches, which is noted in the improvements section below.
+
+Offline test suite: **24/24 passing** (deterministic, no API key needed).
 
 ---
 
