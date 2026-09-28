@@ -9,6 +9,4 @@ backend/.env
 backend/data/returns_log.json
 backend/data/index
 backend/eval/results
-docs
-*.md
 .git

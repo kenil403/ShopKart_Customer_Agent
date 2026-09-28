@@ -2,9 +2,9 @@
 
 * BM25 (keyword) is always on: free, deterministic, and very strong on a small
   corpus full of exact terms (city names, "COD", "₹499", "Final Sale").
-* Dense embeddings (OpenAI) are optional (USE_EMBEDDINGS=true) and fused with
-  BM25 using Reciprocal Rank Fusion, which helps paraphrased questions
-  ("can I send it back?" -> returns).
+* Dense embeddings are optional: set EMBEDDING_MODEL (any provider, e.g.
+  "mistralai:mistral-embed") and the two rankings are fused with Reciprocal Rank
+  Fusion, which helps paraphrased questions ("can I send it back?" -> returns).
 * A relevance floor turns "nothing matched" into an explicit NO_MATCH signal so
   the agent says it doesn't know instead of guessing.
 """
@@ -95,6 +95,14 @@ class Hit:
 class PolicyRetriever:
     def __init__(self, chunks: list[Chunk] | None = None):
         self.chunks = chunks if chunks is not None else load_chunks(config.POLICY_DIR)
+        if not self.chunks:
+            # Fail loudly here: an empty index would otherwise crash deep inside BM25
+            # with "division by zero", or worse, answer every question with "I don't know".
+            raise RuntimeError(
+                f"No policy sections found in {config.POLICY_DIR}. "
+                "Expected markdown files with '## ' headings (e.g. 01_shipping_policy.md). "
+                "If this happens in a container, check that .dockerignore does not exclude *.md."
+            )
         corpus = [tokenize(f"{c.doc_title} {c.section} {c.section} {c.text}") for c in self.chunks]
         self.bm25 = BM25Okapi(corpus)
         self.embedder = None
