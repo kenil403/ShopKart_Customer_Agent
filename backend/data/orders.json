@@ -1,0 +1,150 @@
+{
+  "_note": "SAMPLE DATA. Replace with the orders.json provided in the assessment. Field names are normalised in app/orders_repo.py, so small schema differences are handled there.",
+  "orders": [
+    {
+      "order_id": "ORD-1001",
+      "customer_name": "Priya Sharma",
+      "customer_email": "priya.sharma@example.com",
+      "order_date": "2026-09-14",
+      "status": "delivered",
+      "delivered_date": "2026-09-18",
+      "city": "Ahmedabad",
+      "payment_method": "UPI",
+      "items": [{"name": "Cotton Kurta", "category": "clothing", "price": 1299, "quantity": 1}],
+      "total": 1299
+    },
+    {
+      "order_id": "ORD-1002",
+      "customer_name": "Priya Sharma",
+      "customer_email": "priya.sharma@example.com",
+      "order_date": "2026-09-19",
+      "status": "delivered",
+      "delivered_date": "2026-09-22",
+      "city": "Ahmedabad",
+      "payment_method": "Credit Card",
+      "items": [{"name": "Bluetooth Earbuds", "category": "electronics", "price": 2499, "quantity": 1}],
+      "total": 2499
+    },
+    {
+      "order_id": "ORD-1003",
+      "customer_name": "Priya Sharma",
+      "customer_email": "priya.sharma@example.com",
+      "order_date": "2026-09-24",
+      "status": "shipped",
+      "delivered_date": null,
+      "expected_delivery": "2026-09-28",
+      "city": "Ahmedabad",
+      "payment_method": "UPI",
+      "items": [{"name": "Running Shoes", "category": "footwear", "price": 3199, "quantity": 1}],
+      "total": 3199
+    },
+    {
+      "order_id": "ORD-1004",
+      "customer_name": "Rahul Mehta",
+      "customer_email": "rahul.mehta@example.com",
+      "order_date": "2026-09-01",
+      "status": "delivered",
+      "delivered_date": "2026-09-05",
+      "city": "Mumbai",
+      "payment_method": "Net Banking",
+      "items": [{"name": "Smartwatch", "category": "electronics", "price": 5999, "quantity": 1}],
+      "total": 5999
+    },
+    {
+      "order_id": "ORD-1005",
+      "customer_name": "Rahul Mehta",
+      "customer_email": "rahul.mehta@example.com",
+      "order_date": "2026-09-22",
+      "status": "delivered",
+      "delivered_date": "2026-09-25",
+      "city": "Mumbai",
+      "payment_method": "Cash on Delivery",
+      "items": [{"name": "Non-stick Frying Pan", "category": "home and kitchen", "price": 899, "quantity": 1}],
+      "total": 899
+    },
+    {
+      "order_id": "ORD-1006",
+      "customer_name": "Rahul Mehta",
+      "customer_email": "rahul.mehta@example.com",
+      "order_date": "2026-09-20",
+      "status": "delivered",
+      "delivered_date": "2026-09-23",
+      "city": "Mumbai",
+      "payment_method": "UPI",
+      "items": [{"name": "Ankle Socks (Pack of 5)", "category": "socks", "price": 399, "quantity": 1}],
+      "total": 399
+    },
+    {
+      "order_id": "ORD-1007",
+      "customer_name": "Anita Desai",
+      "customer_email": "anita.desai@example.com",
+      "order_date": "2026-09-16",
+      "status": "delivered",
+      "delivered_date": "2026-09-20",
+      "city": "Bangalore",
+      "payment_method": "Debit Card",
+      "items": [{"name": "Denim Jacket", "category": "clothing", "price": 1799, "quantity": 1, "final_sale": true}],
+      "total": 1799
+    },
+    {
+      "order_id": "ORD-1008",
+      "customer_name": "Anita Desai",
+      "customer_email": "anita.desai@example.com",
+      "order_date": "2026-09-17",
+      "status": "delivered",
+      "delivered_date": "2026-09-21",
+      "city": "Bangalore",
+      "payment_method": "ShopKart Wallet",
+      "items": [{"name": "Vitamin C Face Serum", "category": "beauty", "price": 649, "quantity": 1, "opened": true}],
+      "total": 649
+    },
+    {
+      "order_id": "ORD-1009",
+      "customer_name": "Anita Desai",
+      "customer_email": "anita.desai@example.com",
+      "order_date": "2026-09-26",
+      "status": "processing",
+      "delivered_date": null,
+      "city": "Bangalore",
+      "payment_method": "UPI",
+      "items": [{"name": "Laptop Sleeve 15-inch", "category": "accessories", "price": 799, "quantity": 1}],
+      "total": 799
+    },
+    {
+      "order_id": "ORD-1010",
+      "customer_name": "Vikram Rao",
+      "customer_email": "vikram.rao@example.com",
+      "order_date": "2026-08-28",
+      "status": "delivered",
+      "delivered_date": "2026-09-02",
+      "city": "Guwahati",
+      "payment_method": "UPI",
+      "items": [{"name": "Wooden Table Lamp", "category": "home", "price": 1499, "quantity": 1}],
+      "total": 1548
+    },
+    {
+      "order_id": "ORD-1011",
+      "customer_name": "Vikram Rao",
+      "customer_email": "vikram.rao@example.com",
+      "order_date": "2026-09-15",
+      "status": "delivered",
+      "delivered_date": "2026-09-21",
+      "city": "Guwahati",
+      "payment_method": "Credit Card",
+      "items": [{"name": "Personalised Photo Mug", "category": "home and kitchen", "price": 549, "quantity": 1, "customised": true}],
+      "total": 628
+    },
+    {
+      "order_id": "ORD-1012",
+      "customer_name": "Vikram Rao",
+      "customer_email": "vikram.rao@example.com",
+      "order_date": "2026-09-23",
+      "status": "delivered",
+      "delivered_date": "2026-09-24",
+      "city": "Guwahati",
+      "payment_method": "UPI",
+      "items": [{"name": "ShopKart Gift Card ₹1000", "category": "gift card", "price": 1000, "quantity": 1}],
+      "total": 1000
+    }
+  ]
+}

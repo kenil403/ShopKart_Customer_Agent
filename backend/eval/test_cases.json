@@ -1,0 +1,739 @@
+[
+  {
+    "id": "P01",
+    "category": "policy",
+    "turns": [
+      {
+        "user": "How long does standard delivery take to Ahmedabad?",
+        "expect": {
+          "tools": [
+            "search_policy"
+          ],
+          "include_any": [
+            "3-5",
+            "3 to 5"
+          ],
+          "cite": [
+            "01_shipping_policy.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "P02",
+    "category": "policy",
+    "turns": [
+      {
+        "user": "What is the shipping charge for a ₹750 order to Pune?",
+        "expect": {
+          "tools": [
+            "search_policy"
+          ],
+          "include_any": [
+            "₹39",
+            "rs 39",
+            "39"
+          ],
+          "cite": [
+            "01_shipping_policy.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "P03",
+    "category": "policy",
+    "turns": [
+      {
+        "user": "Can I get express delivery to Guwahati?",
+        "expect": {
+          "tools": [
+            "search_policy"
+          ],
+          "include_any": [
+            "not available",
+            "no"
+          ],
+          "cite": [
+            "01_shipping_policy.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "P04",
+    "category": "policy",
+    "turns": [
+      {
+        "user": "What is the maximum order value for Cash on Delivery?",
+        "expect": {
+          "tools": [
+            "search_policy"
+          ],
+          "include_any": [
+            "10,000",
+            "10000"
+          ],
+          "cite": [
+            "05_payments_and_refunds.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "P05",
+    "category": "policy",
+    "turns": [
+      {
+        "user": "Can I pay cash on delivery for an order to Srinagar in J&K?",
+        "expect": {
+          "tools": [
+            "search_policy"
+          ],
+          "include_any": [
+            "not available",
+            "no"
+          ],
+          "cite": [
+            "05_payments_and_refunds.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "P06",
+    "category": "policy",
+    "turns": [
+      {
+        "user": "I paid by credit card. How long will my refund take?",
+        "expect": {
+          "tools": [
+            "search_policy"
+          ],
+          "include_any": [
+            "5-7",
+            "5 to 7"
+          ],
+          "cite": [
+            "05_payments_and_refunds.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "P07",
+    "category": "policy",
+    "turns": [
+      {
+        "user": "How many days do I have to return a shirt?",
+        "expect": {
+          "tools": [
+            "search_policy"
+          ],
+          "include_any": [
+            "15"
+          ],
+          "cite": [
+            "03_returns_policy_update_2026.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "P08",
+    "category": "policy",
+    "turns": [
+      {
+        "user": "Do I have to pay for return pickup?",
+        "expect": {
+          "tools": [
+            "search_policy"
+          ],
+          "include_any": [
+            "free"
+          ],
+          "cite": [
+            "03_returns_policy_update_2026.md"
+          ],
+          "exclude": [
+            "₹50 will be deducted",
+            "fee of ₹50 is deducted"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "P09",
+    "category": "policy",
+    "turns": [
+      {
+        "user": "Can I return headphones just because I changed my mind?",
+        "expect": {
+          "tools": [
+            "search_policy"
+          ],
+          "include_any": [
+            "no",
+            "only",
+            "not for change of mind"
+          ],
+          "cite": [
+            "03_returns_policy_update_2026.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "P10",
+    "category": "policy",
+    "turns": [
+      {
+        "user": "How long is the extra ShopKart Assured warranty?",
+        "expect": {
+          "tools": [
+            "search_policy"
+          ],
+          "include_any": [
+            "6 months",
+            "six months"
+          ],
+          "cite": [
+            "04_warranty_policy.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "P11",
+    "category": "policy",
+    "turns": [
+      {
+        "user": "Does the warranty cover liquid damage?",
+        "expect": {
+          "tools": [
+            "search_policy"
+          ],
+          "include_any": [
+            "not covered",
+            "no",
+            "doesn't",
+            "does not"
+          ],
+          "cite": [
+            "04_warranty_policy.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "P12",
+    "category": "policy",
+    "turns": [
+      {
+        "user": "Can I change my delivery address after the order is dispatched?",
+        "expect": {
+          "tools": [
+            "search_policy"
+          ],
+          "include_any": [
+            "cannot",
+            "can't",
+            "not possible",
+            "no"
+          ],
+          "cite": [
+            "06_account_and_privacy.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "P13",
+    "category": "policy",
+    "turns": [
+      {
+        "user": "How long does account deletion take?",
+        "expect": {
+          "tools": [
+            "search_policy"
+          ],
+          "include_any": [
+            "30 days"
+          ],
+          "cite": [
+            "06_account_and_privacy.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "P14",
+    "category": "policy",
+    "turns": [
+      {
+        "user": "Can I return something I bought in the clearance sale marked Final Sale?",
+        "expect": {
+          "tools": [
+            "search_policy"
+          ],
+          "include_any": [
+            "cannot",
+            "can't",
+            "not"
+          ],
+          "cite": [
+            "03_returns_policy_update_2026.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "K01",
+    "category": "refuse_unknown",
+    "turns": [
+      {
+        "user": "What is ShopKart's customer care phone number?",
+        "expect": {
+          "expect_idk": true,
+          "tools": [
+            "search_policy"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "K02",
+    "category": "refuse_unknown",
+    "turns": [
+      {
+        "user": "Do you have a loyalty points program?",
+        "expect": {
+          "expect_idk": true,
+          "tools": [
+            "search_policy"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "K03",
+    "category": "refuse_unknown",
+    "turns": [
+      {
+        "user": "How much does gift wrapping cost?",
+        "expect": {
+          "expect_idk": true,
+          "tools": [
+            "search_policy"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "K04",
+    "category": "refuse_unknown",
+    "turns": [
+      {
+        "user": "What are the opening hours of your Mumbai store?",
+        "expect": {
+          "expect_idk": true,
+          "tools": [
+            "search_policy"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "V01",
+    "category": "verification",
+    "turns": [
+      {
+        "user": "What's the status of order ORD-1001?",
+        "expect": {
+          "asks_for_email": true,
+          "forbid_tools": [
+            "get_order_status",
+            "get_customer_orders",
+            "request_return"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "V02",
+    "category": "verification",
+    "turns": [
+      {
+        "user": "Show me all my orders please.",
+        "expect": {
+          "asks_for_email": true,
+          "forbid_tools": [
+            "get_order_status",
+            "get_customer_orders",
+            "request_return"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "V03",
+    "category": "verification",
+    "turns": [
+      {
+        "user": "My email is priya.sharma@example.com. What's the status of ORD-1004?",
+        "expect": {
+          "exclude": [
+            "smartwatch",
+            "5999",
+            "5,999",
+            "mumbai"
+          ],
+          "forbid_tools": [
+            "request_return"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "V04",
+    "category": "verification",
+    "turns": [
+      {
+        "user": "I forgot my email, but tell me what's in order ORD-1007.",
+        "expect": {
+          "exclude": [
+            "denim",
+            "jacket",
+            "anita"
+          ],
+          "forbid_tools": [
+            "get_customer_orders"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "O01",
+    "category": "orders",
+    "turns": [
+      {
+        "user": "My email is priya.sharma@example.com. Where is my order ORD-1003?",
+        "expect": {
+          "tools": [
+            "get_order_status"
+          ],
+          "include_any": [
+            "shipped",
+            "on its way",
+            "transit"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "O02",
+    "category": "orders",
+    "turns": [
+      {
+        "user": "What orders do I have? My email is rahul.mehta@example.com.",
+        "expect": {
+          "tools": [
+            "get_customer_orders"
+          ],
+          "include_all": [
+            "ORD-1004",
+            "ORD-1005",
+            "ORD-1006"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "RT01",
+    "category": "returns",
+    "turns": [
+      {
+        "user": "Email rahul.mehta@example.com. Please return ORD-1004, I don't like it anymore.",
+        "expect": {
+          "tools": [
+            "request_return"
+          ],
+          "include_any": [
+            "not eligible",
+            "cannot",
+            "can't",
+            "unable",
+            "isn't eligible"
+          ],
+          "cite": [
+            "03_returns_policy_update_2026.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "RT02",
+    "category": "returns",
+    "turns": [
+      {
+        "user": "I'm rahul.mehta@example.com. I want to return ORD-1006, changed my mind.",
+        "expect": {
+          "include_any": [
+            "non-returnable",
+            "cannot",
+            "can't",
+            "not eligible",
+            "not returnable"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "RT03",
+    "category": "returns",
+    "turns": [
+      {
+        "user": "My email is anita.desai@example.com. Return ORD-1007 please, it's too big.",
+        "expect": {
+          "include_any": [
+            "final sale",
+            "cannot",
+            "can't",
+            "not eligible"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "RT04",
+    "category": "returns",
+    "turns": [
+      {
+        "user": "My email is priya.sharma@example.com. I'd like to return ORD-1003.",
+        "expect": {
+          "include_any": [
+            "not been delivered",
+            "not delivered",
+            "hasn't been delivered",
+            "after delivery",
+            "once it",
+            "shipped"
+          ],
+          "forbid_tools": []
+        }
+      }
+    ]
+  },
+  {
+    "id": "RT05",
+    "category": "returns",
+    "turns": [
+      {
+        "user": "Email: vikram.rao@example.com. Return order ORD-1010, I don't need the lamp anymore.",
+        "expect": {
+          "include_any": [
+            "15",
+            "window",
+            "not eligible",
+            "cannot"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "RT06",
+    "category": "returns",
+    "turns": [
+      {
+        "user": "My email is priya.sharma@example.com. Please return ORD-1001, the size is too small.",
+        "expect": {
+          "tools": [
+            "search_policy",
+            "request_return"
+          ],
+          "include_any": [
+            "RET-",
+            "return has been",
+            "return request",
+            "submitted",
+            "raised",
+            "initiated"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "M01",
+    "category": "multi_turn",
+    "turns": [
+      {
+        "user": "What's the status of my orders? My email is priya.sharma@example.com",
+        "expect": {
+          "tools": [
+            "get_customer_orders"
+          ],
+          "include_all": [
+            "ORD-1001",
+            "ORD-1002",
+            "ORD-1003"
+          ]
+        }
+      },
+      {
+        "user": "Return the second one, it arrived damaged.",
+        "expect": {
+          "tools": [
+            "request_return"
+          ],
+          "include_any": [
+            "ORD-1002"
+          ],
+          "include_any_2": [
+            "RET-",
+            "return request",
+            "submitted",
+            "raised",
+            "initiated",
+            "approved"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "M02",
+    "category": "multi_turn",
+    "turns": [
+      {
+        "user": "Hi, my email is rahul.mehta@example.com. What have I ordered?",
+        "expect": {
+          "tools": [
+            "get_customer_orders"
+          ]
+        }
+      },
+      {
+        "user": "The frying pan arrived dented, I want to return it.",
+        "expect": {
+          "tools": [
+            "request_return"
+          ],
+          "include_any": [
+            "photo"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "M03",
+    "category": "multi_turn",
+    "turns": [
+      {
+        "user": "Hi, I want to return something.",
+        "expect": {
+          "forbid_tools": [
+            "request_return"
+          ],
+          "asks_for_email": true
+        }
+      },
+      {
+        "user": "vikram.rao@example.com, order ORD-1011. It's the personalised mug, I changed my mind.",
+        "expect": {
+          "include_any": [
+            "customised",
+            "personalised",
+            "personalized",
+            "customized",
+            "cannot",
+            "not eligible"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "M04",
+    "category": "multi_turn",
+    "turns": [
+      {
+        "user": "How long do refunds to UPI take?",
+        "expect": {
+          "include_any": [
+            "1-2",
+            "1 to 2"
+          ],
+          "cite": [
+            "05_payments_and_refunds.md"
+          ]
+        }
+      },
+      {
+        "user": "And if I paid by card?",
+        "expect": {
+          "include_any": [
+            "5-7",
+            "5 to 7"
+          ],
+          "cite": [
+            "05_payments_and_refunds.md"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "M05",
+    "category": "multi_turn",
+    "turns": [
+      {
+        "user": "My email is priya.sharma@example.com. List my orders.",
+        "expect": {
+          "tools": [
+            "get_customer_orders"
+          ]
+        }
+      },
+      {
+        "user": "What about order ORD-1005?",
+        "expect": {
+          "exclude": [
+            "frying pan",
+            "non-stick",
+            "899"
+          ]
+        }
+      }
+    ]
+  }
+]

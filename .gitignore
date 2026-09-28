@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.pytest_cache/
+backend/data/index/
+backend/data/returns_log.json
+frontend/node_modules/
+frontend/dist/
+.DS_Store
+backend/eval/results/partial.json
+backend/data/conversations.sqlite*
+backend/static/
+policy_docs/

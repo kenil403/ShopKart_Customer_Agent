@@ -1,0 +1,28 @@
+# Render Blueprint: one free web service running the Dockerfile.
+# The image builds the React app and the Python API together, so a single
+# URL serves the website and the API (no CORS setup needed).
+#
+# In Render: New > Blueprint > pick this repo, then paste your API keys.
+services:
+  - type: web
+    name: shopkart-support-agent
+    runtime: docker
+    plan: free
+    region: singapore          # closest to India; also: oregon, frankfurt, ohio, virginia
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: LLM_MODEL
+        value: groq:openai/gpt-oss-120b
+      - key: LLM_FALLBACKS
+        value: google_genai:gemini-3.1-flash-lite,mistralai:mistral-small-latest
+      - key: STORE_TODAY
+        value: "2026-09-26"
+      # sync:false = Render asks for these in the dashboard; never stored in Git.
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: MISTRAL_API_KEY
+        sync: false
